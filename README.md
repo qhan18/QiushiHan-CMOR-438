@@ -74,7 +74,7 @@ Implemented in `src/rice_ml/processing`:
 ## Installation
 
 ```bash
-git clone https://github.com/<your-username>/QiushiHan-CMOR-438.git
+git clone https://github.com/qhan18/QiushiHan-CMOR-438.git
 cd QiushiHan-CMOR-438
 pip install -e .
 ```
