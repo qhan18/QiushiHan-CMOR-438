@@ -40,6 +40,7 @@ def confusion_matrix(y_true, y_pred):
     n = len(classes)
     class_map = {c: i for i, c in enumerate(classes)}
     matrix = np.zeros((n, n), dtype=int)
+    # count predictions vs true labels
     for t, p in zip(y_true, y_pred):
         matrix[class_map[t], class_map[p]] += 1
     return matrix
