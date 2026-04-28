@@ -3,55 +3,58 @@ import numpy as np
 
 
 class NodeR:
-    """Represents a node in the regression tree."""
+    """A single node in the regression tree, either a split or a leaf."""
     def __init__(self, feature=None, threshold=None, left=None,
                  right=None, value=None):
-        self.feature = feature      # feature index to split on
-        self.threshold = threshold  # threshold value for the split
-        self.left = left            # left subtree (feature <= threshold)
-        self.right = right          # right subtree (feature > threshold)
-        self.value = value          # predicted mean value (leaf nodes only)
+        self.feature = feature      # which feature we're splitting on
+        self.threshold = threshold  # the cutoff value for the split
+        self.left = left            # subtree for samples where feature <= threshold
+        self.right = right          # subtree for samples where feature > threshold
+        self.value = value          # only set if this is a leaf node
 
     def is_leaf(self):
+        # leaf nodes have a value, internal nodes dont
         return self.value is not None
 
 
 class DecisionTreeRegressor:
-    """Decision tree regressor using variance reduction."""
+    """Decision tree regressor that splits on variance reduction."""
 
     def __init__(self, max_depth=10, min_samples_split=2):
-        self.max_depth = max_depth                  # maximum tree depth
-        self.min_samples_split = min_samples_split  # minimum samples to split
-        self.root = None                            # root node of the tree
+        self.max_depth = max_depth                  # how deep the tree can grow
+        self.min_samples_split = min_samples_split  # dont split if too few samples
+        self.root = None                            # tree gets built during fit
 
     def fit(self, X, y):
         X = np.asarray(X, dtype=float)
         y = np.asarray(y, dtype=float)
-        # recursively grow the tree from the root
+        # start growing the tree recursively from the top
         self.root = self._grow_tree(X, y)
         return self
 
     def _variance_reduction(self, y, left_y, right_y):
-        # compute reduction in variance after a split
+        # how much does this split reduce the variance in the targets
         n = len(y)
-        return (np.var(y) -
-                (len(left_y) / n) * np.var(left_y) -
-                (len(right_y) / n) * np.var(right_y))
+        parent_var = np.var(y)
+        left_var = (len(left_y) / n) * np.var(left_y)
+        right_var = (len(right_y) / n) * np.var(right_y)
+        return parent_var - left_var - right_var
 
     def _best_split(self, X, y):
         best_gain = -1
         best_feature, best_threshold = None, None
-        # try every feature and every unique threshold value
+        # brute force search over all features and thresholds
         for feature in range(X.shape[1]):
             thresholds = np.unique(X[:, feature])
             for threshold in thresholds:
                 left_mask = X[:, feature] <= threshold
                 right_mask = ~left_mask
+                # skip if the split doesnt actually divide the data
                 if left_mask.sum() == 0 or right_mask.sum() == 0:
                     continue
                 gain = self._variance_reduction(
                     y, y[left_mask], y[right_mask])
-                # keep the split with the highest variance reduction
+                # save this split if its the best one so far
                 if gain > best_gain:
                     best_gain = gain
                     best_feature = feature
@@ -59,15 +62,16 @@ class DecisionTreeRegressor:
         return best_feature, best_threshold
 
     def _grow_tree(self, X, y, depth=0):
-        # stopping conditions: max depth or too few samples
+        # base cases: tree is too deep or not enough samples to split
         if (depth >= self.max_depth or
                 len(y) < self.min_samples_split):
-            # leaf node predicts the mean of remaining samples
+            # leaf predicts the average of all remaining target values
             return NodeR(value=np.mean(y))
         feature, threshold = self._best_split(X, y)
+        # if no good split found just return a leaf
         if feature is None:
             return NodeR(value=np.mean(y))
-        # split data and recursively grow left and right subtrees
+        # split the data and keep growing each side
         left_mask = X[:, feature] <= threshold
         left = self._grow_tree(X[left_mask], y[left_mask], depth + 1)
         right = self._grow_tree(X[~left_mask], y[~left_mask], depth + 1)
@@ -75,7 +79,7 @@ class DecisionTreeRegressor:
                      left=left, right=right)
 
     def _predict_single(self, x, node):
-        # traverse the tree until reaching a leaf node
+        # walk down the tree until we hit a leaf
         if node.is_leaf():
             return node.value
         if x[node.feature] <= node.threshold:
@@ -87,9 +91,11 @@ class DecisionTreeRegressor:
         return np.array([self._predict_single(x, self.root) for x in X])
 
     def score(self, X, y):
-        """R² coefficient of determination."""
+        """R squared, measures how well predictions match actual values."""
         y = np.asarray(y, dtype=float)
         y_pred = self.predict(X)
+        # residual sum of squares
         ss_res = np.sum((y - y_pred) ** 2)
+        # total sum of squares
         ss_tot = np.sum((y - np.mean(y)) ** 2)
         return 1 - ss_res / ss_tot

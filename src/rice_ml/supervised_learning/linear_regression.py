@@ -1,28 +1,28 @@
-"""Linear regression implemented from scratch: OLS, Ridge, and Gradient Descent."""
+"""Linear regression implemented from scratch using OLS, Ridge, and Gradient Descent."""
 import numpy as np
 
 
 class LinearRegression:
     """
-    Linear Regression with three methods:
-    - 'ols': Ordinary Least Squares (normal equation)
-    - 'ridge': Ridge Regression (L2 regularization, closed form)
-    - 'gd': Gradient Descent (iterative)
+    Linear Regression with three solvers to choose from:
+    - 'ols': Ordinary Least Squares using the normal equation
+    - 'ridge': Ridge Regression with L2 regularization
+    - 'gd': Gradient Descent iterative approach
     """
 
     def __init__(self, method='ols', alpha=1.0,
                  learning_rate=0.01, max_iter=1000):
-        self.method = method              # which solver to use
-        self.alpha = alpha                # regularization strength for ridge
-        self.learning_rate = learning_rate  # step size for gradient descent
-        self.max_iter = max_iter          # maximum number of GD iterations
-        self.coef_ = None                 # learned feature weights
-        self.intercept_ = None            # learned bias term
+        self.method = method               # which solver to use
+        self.alpha = alpha                 # regularization strength, only used for ridge
+        self.learning_rate = learning_rate # how big each gradient descent step is
+        self.max_iter = max_iter           # how many GD iterations to run
+        self.coef_ = None                  # feature weights learned during fit
+        self.intercept_ = None             # bias term learned during fit
 
     def fit(self, X, y):
         X = np.asarray(X, dtype=float)
         y = np.asarray(y, dtype=float)
-        # dispatch to the appropriate solver
+        # call the right solver based on what method was chosen
         if self.method == 'ols':
             self._fit_ols(X, y)
         elif self.method == 'ridge':
@@ -34,35 +34,35 @@ class LinearRegression:
         return self
 
     def _fit_ols(self, X, y):
-        # add bias column of ones to X
+        # prepend a column of ones to handle the bias term
         X_b = np.c_[np.ones((X.shape[0], 1)), X]
-        # solve normal equation: theta = (X^T X)^-1 X^T y
+        # normal equation gives the exact closed form solution
         theta = np.linalg.pinv(X_b.T @ X_b) @ X_b.T @ y
         self.intercept_ = theta[0]
         self.coef_ = theta[1:]
 
     def _fit_ridge(self, X, y):
-        # add bias column
+        # prepend a column of ones for the bias term
         X_b = np.c_[np.ones((X.shape[0], 1)), X]
         n_features = X_b.shape[1]
-        # identity matrix with bias term excluded from regularization
+        # set up identity matrix but dont regularize the bias term
         I = np.eye(n_features)
         I[0, 0] = 0
-        # solve ridge normal equation: theta = (X^T X + alpha*I)^-1 X^T y
+        # ridge version of the normal equation adds alpha * I to stabilize
         theta = np.linalg.pinv(X_b.T @ X_b + self.alpha * I) @ X_b.T @ y
         self.intercept_ = theta[0]
         self.coef_ = theta[1:]
 
     def _fit_gd(self, X, y):
         n_samples, n_features = X.shape
-        # initialize weights and bias to zero
+        # start weights and bias at zero
         self.coef_ = np.zeros(n_features)
         self.intercept_ = 0.0
         for _ in range(self.max_iter):
-            # compute predictions and error
+            # make predictions with current weights
             y_pred = X @ self.coef_ + self.intercept_
             error = y_pred - y
-            # update weights using gradient of MSE loss
+            # nudge weights in the direction that reduces MSE
             self.coef_ -= self.learning_rate * (X.T @ error) / n_samples
             self.intercept_ -= self.learning_rate * np.mean(error)
 
@@ -71,7 +71,7 @@ class LinearRegression:
         return X @ self.coef_ + self.intercept_
 
     def score(self, X, y):
-        """R² coefficient of determination."""
+        """R squared, how much variance in y the model explains."""
         y_pred = self.predict(X)
         ss_res = np.sum((y - y_pred) ** 2)
         ss_tot = np.sum((y - np.mean(y)) ** 2)
