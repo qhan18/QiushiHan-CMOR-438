@@ -3,6 +3,8 @@
 ## Qiushi Han | Rice University | Spring 2026
 **Instructor:** Dr. Randy R. Davila
 
+[![CI](https://github.com/qhan18/QiushiHan-CMOR-438/actions/workflows/ci.yml/badge.svg)](https://github.com/qhan18/QiushiHan-CMOR-438/actions/workflows/ci.yml)
+
 ---
 
 ## Overview
@@ -148,4 +150,4 @@ Each algorithm has a dedicated Jupyter notebook in the `examples/` folder demons
 **Institution:** Rice University
 **Course:** CMOR 438 / INDE 577, Spring 2026
 **Instructor:** Dr. Randy R. Davila
-**License:** MIT — see LICENSE file
+**License:** MIT, see LICENSE file
