@@ -1,17 +1,17 @@
 # Perceptron
 
 ## Overview
-Demonstrates the **Perceptron** — the simplest neural network — implemented from scratch using Rosenblatt's learning rule (1958).
+Demonstrates the **Perceptron** implemented from scratch using Rosenblatt's learning rule on a real medical dataset.
 
 ## Dataset
-**Iris Dataset** (sklearn) — converted to binary classification (setosa vs non-setosa).
-Plus a synthetic non-linearly-separable dataset for comparison.
+**Breast Cancer Wisconsin Dataset** (sklearn) — 569 samples, 30 features, binary classification (malignant vs benign).
+Plus a synthetic non-linearly separable dataset for comparison.
 
 ## Results
 | Dataset | Accuracy |
 |---|---|
-| Iris (linearly separable) | 96.67% |
+| Breast Cancer (linearly separable) | 94.74% |
 | Synthetic (non-separable) | 62.50% |
 
 ## Key Concepts
-- Linear classifiers, perceptron learning rule, decision boundaries, linear separability, XOR problem
+- Linear classifiers, perceptron learning rule, decision boundaries, linear separability, medical classification
