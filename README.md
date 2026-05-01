@@ -33,32 +33,32 @@ Implemented in `src/rice_ml/supervised_learning/`
 
 | Algorithm | File | Key Concepts |
 |---|---|---|
-| Linear Regression | `linear_regression.py` | OLS, Ridge, Gradient Descent |
-| Logistic Regression | `logistic_regression.py` | Sigmoid, Binary Cross-Entropy |
-| K-Nearest Neighbors | `knn.py` | Euclidean Distance, Majority Vote |
-| Perceptron | `perceptron.py` | Rosenblatt Learning Rule |
-| Multilayer Perceptron | `multilayer_perceptron.py` | Backpropagation, Sigmoid Activation |
-| Decision Tree Classifier | `decision_tree_classifier.py` | Entropy, Information Gain |
-| Decision Tree Regressor | `decision_tree_regressor.py` | Variance Reduction |
-| Random Forest | `ensemble.py` | Bagging, Feature Randomness |
+| Linear Regression | [`linear_regression.py`](src/rice_ml/supervised_learning/linear_regression.py) | OLS, Ridge, Gradient Descent |
+| Logistic Regression | [`logistic_regression.py`](src/rice_ml/supervised_learning/logistic_regression.py) | Sigmoid, Binary Cross-Entropy |
+| K-Nearest Neighbors | [`knn.py`](src/rice_ml/supervised_learning/knn.py) | Euclidean Distance, Majority Vote |
+| Perceptron | [`perceptron.py`](src/rice_ml/supervised_learning/perceptron.py) | Rosenblatt Learning Rule |
+| Multilayer Perceptron | [`multilayer_perceptron.py`](src/rice_ml/supervised_learning/multilayer_perceptron.py) | Backpropagation, Sigmoid Activation |
+| Decision Tree Classifier | [`decision_tree_classifier.py`](src/rice_ml/supervised_learning/decision_tree_classifier.py) | Entropy, Information Gain |
+| Decision Tree Regressor | [`decision_tree_regressor.py`](src/rice_ml/supervised_learning/decision_tree_regressor.py) | Variance Reduction |
+| Random Forest | [`ensemble.py`](src/rice_ml/supervised_learning/ensemble.py) | Bagging, Feature Randomness |
 
 ### Unsupervised Learning
 Implemented in `src/rice_ml/unsupervised_learning/`
 
 | Algorithm | File | Key Concepts |
 |---|---|---|
-| K-Means Clustering | `k_means.py` | Lloyd's Algorithm, Inertia, Elbow Method |
-| DBSCAN | `dbscan.py` | Density-Based, Noise Detection |
-| PCA | `pca.py` | Eigendecomposition, Explained Variance |
-| Label Propagation | `label_propagation.py` | RBF Kernel, Semi-Supervised Learning |
+| K-Means Clustering | [`k_means.py`](src/rice_ml/unsupervised_learning/k_means.py) | Lloyd's Algorithm, Inertia, Elbow Method |
+| DBSCAN | [`dbscan.py`](src/rice_ml/unsupervised_learning/dbscan.py) | Density-Based, Noise Detection |
+| PCA | [`pca.py`](src/rice_ml/unsupervised_learning/pca.py) | Eigendecomposition, Explained Variance |
+| Label Propagation | [`label_propagation.py`](src/rice_ml/unsupervised_learning/label_propagation.py) | RBF Kernel, Semi-Supervised Learning |
 
 ### Data Processing Utilities
 Implemented in `src/rice_ml/processing/`
 
 | Utility | File | Key Concepts |
 |---|---|---|
-| Preprocessing | `preprocessing.py` | StandardScaler, MinMaxScaler, Train/Test Split |
-| Metrics | `metrics.py` | Accuracy, MSE, R², Confusion Matrix, Precision, Recall |
+| Preprocessing | [`preprocessing.py`](src/rice_ml/processing/preprocessing.py) | StandardScaler, MinMaxScaler, Train/Test Split |
+| Metrics | [`metrics.py`](src/rice_ml/processing/metrics.py) | Accuracy, MSE, R², Confusion Matrix, Precision, Recall |
 
 ---
 
@@ -127,18 +127,18 @@ Each algorithm has a dedicated Jupyter notebook in the `examples/` folder demons
 
 | Notebook | Dataset | Key Result |
 |---|---|---|
-| Linear Regression | Diabetes | R² = 0.45 (OLS), Ridge, GD comparison |
-| Logistic Regression | Breast Cancer | 98.2% accuracy |
-| KNN | Iris | 96.7% accuracy, decision boundary visualization |
-| Perceptron | Iris (binary) | 96.67% on separable, 62.5% on non-separable |
-| MLP | Breast Cancer | 95.61% accuracy, moons comparison |
-| Decision Tree Classifier | Iris | 93.33% accuracy, depth vs overfitting |
-| Decision Tree Regressor | Diabetes | R² analysis, step-function visualization |
-| Random Forest | Wine | 100% accuracy, trees vs accuracy curve |
-| K-Means | Synthetic Blobs | 4 clusters recovered, elbow method |
-| DBSCAN | Moons, Noisy Blobs | Arbitrary shape detection, noise handling |
-| PCA | Digits | 40 components for 95% variance, reconstruction |
-| Label Propagation | Blobs, Moons | 87.5% accuracy with 20% labeled data |
+| [Linear Regression](examples/Supervised_Learning/Linear_Regression/) | Diabetes | R² = 0.45 (OLS), Ridge, GD comparison |
+| [Logistic Regression](examples/Supervised_Learning/Logistic_Regression/) | Breast Cancer | 98.2% accuracy |
+| [KNN](examples/Supervised_Learning/K_Nearest_Neighbors/) | Wine | 100% accuracy at k=7 |
+| [Perceptron](examples/Supervised_Learning/Perceptron/) | Breast Cancer | 94.74% accuracy |
+| [MLP](examples/Supervised_Learning/Multilayer_Perceptron/) | Breast Cancer | 95.61% accuracy, moons comparison |
+| [Decision Tree Classifier](examples/Supervised_Learning/Decision_Trees/) | Wine | 97.22% accuracy, depth vs overfitting |
+| [Decision Tree Regressor](examples/Supervised_Learning/Regression_Trees/) | Diabetes | R² analysis, step-function visualization |
+| [Random Forest](examples/Supervised_Learning/Ensemble_Methods/) | Wine | 100% accuracy, trees vs accuracy curve |
+| [K-Means](examples/Unsupervised_Learning/K_Means_Clustering/) | Synthetic Blobs | 4 clusters recovered, elbow method |
+| [DBSCAN](examples/Unsupervised_Learning/DBSCAN/) | Moons, Noisy Blobs | Arbitrary shape detection, noise handling |
+| [PCA](examples/Unsupervised_Learning/PCA/) | Digits | 40 components for 95% variance, reconstruction |
+| [Label Propagation](examples/Unsupervised_Learning/Community_Detection/) | Blobs, Moons | 87.5% accuracy with 20% labeled data |
 
 ---
 
