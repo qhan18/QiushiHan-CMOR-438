@@ -63,6 +63,8 @@ Implemented in `src/rice_ml/processing/`
 ---
 
 ## Repository Structure
+
+```text
 QiushiHan-CMOR-438/
 ├── .github/workflows/ci.yml
 ├── examples/
@@ -89,6 +91,7 @@ QiushiHan-CMOR-438/
 ├── LICENSE
 ├── pyproject.toml
 └── requirements.txt
+```
 
 ---
 
