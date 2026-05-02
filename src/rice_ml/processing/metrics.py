@@ -3,7 +3,26 @@ import numpy as np
 
 
 def accuracy_score(y_true, y_pred):
-    """Fraction of correctly classified samples."""
+    """
+    Compute classification accuracy.
+
+    Parameters
+    ----------
+    y_true : array-like of shape (n_samples,)
+        True class labels.
+    y_pred : array-like of shape (n_samples,)
+        Predicted class labels.
+
+    Returns
+    -------
+    accuracy : float
+        Fraction of correctly classified samples.
+
+    Example
+    -------
+    >>> accuracy_score([0, 1, 1, 0], [0, 1, 0, 0])
+    0.75
+    """
     y_true = np.asarray(y_true)
     y_pred = np.asarray(y_pred)
     # just check how many predictions match the true labels
@@ -11,16 +30,59 @@ def accuracy_score(y_true, y_pred):
 
 
 def mean_squared_error(y_true, y_pred):
-    """Mean squared error regression loss."""
+    """
+    Compute mean squared error regression loss.
+
+    Parameters
+    ----------
+    y_true : array-like of shape (n_samples,)
+        True target values.
+    y_pred : array-like of shape (n_samples,)
+        Predicted target values.
+
+    Returns
+    -------
+    mse : float
+        Average squared difference between predicted and true values.
+
+    Example
+    -------
+    >>> mean_squared_error([1.0, 2.0, 3.0], [1.0, 2.0, 3.0])
+    0.0
+    """
     y_true = np.asarray(y_true, dtype=float)
     y_pred = np.asarray(y_pred, dtype=float)
-    # square the errors so negatives don't cancel out positives
+    # square the errors so negatives dont cancel out positives
     errors = y_true - y_pred
     return np.mean(errors ** 2)
 
 
 def r2_score(y_true, y_pred):
-    """R squared coefficient of determination, measures how much variance the model explains."""
+    """
+    Compute R squared coefficient of determination.
+
+    Measures how much variance in the target the model explains.
+    A score of 1.0 means perfect prediction, 0.0 means the model
+    does no better than predicting the mean, and negative values
+    mean the model is worse than predicting the mean.
+
+    Parameters
+    ----------
+    y_true : array-like of shape (n_samples,)
+        True target values.
+    y_pred : array-like of shape (n_samples,)
+        Predicted target values.
+
+    Returns
+    -------
+    r2 : float
+        R squared score between negative infinity and 1.0.
+
+    Example
+    -------
+    >>> r2_score([1.0, 2.0, 3.0], [1.0, 2.0, 3.0])
+    1.0
+    """
     y_true = np.asarray(y_true, dtype=float)
     y_pred = np.asarray(y_pred, dtype=float)
     # residual sum of squares, how wrong our predictions are
@@ -32,15 +94,58 @@ def r2_score(y_true, y_pred):
 
 
 def mean_absolute_error(y_true, y_pred):
-    """Mean absolute error, average magnitude of errors."""
+    """
+    Compute mean absolute error regression loss.
+
+    Parameters
+    ----------
+    y_true : array-like of shape (n_samples,)
+        True target values.
+    y_pred : array-like of shape (n_samples,)
+        Predicted target values.
+
+    Returns
+    -------
+    mae : float
+        Average absolute difference between predicted and true values.
+
+    Example
+    -------
+    >>> mean_absolute_error([1.0, 2.0, 3.0], [2.0, 3.0, 4.0])
+    1.0
+    """
     y_true = np.asarray(y_true, dtype=float)
     y_pred = np.asarray(y_pred, dtype=float)
-    # take absolute value so positive and negative errors don't cancel
+    # take absolute value so positive and negative errors dont cancel
     return np.mean(np.abs(y_true - y_pred))
 
 
 def confusion_matrix(y_true, y_pred):
-    """Compute confusion matrix for binary classification."""
+    """
+    Compute confusion matrix for classification results.
+
+    Rows represent true labels and columns represent predicted labels.
+    Entry [i, j] is the number of samples with true label i that were
+    predicted as label j.
+
+    Parameters
+    ----------
+    y_true : array-like of shape (n_samples,)
+        True class labels.
+    y_pred : array-like of shape (n_samples,)
+        Predicted class labels.
+
+    Returns
+    -------
+    cm : np.ndarray of shape (n_classes, n_classes)
+        Confusion matrix.
+
+    Example
+    -------
+    >>> confusion_matrix([0, 1, 0, 1], [0, 1, 1, 0])
+    array([[1, 1],
+           [1, 1]])
+    """
     y_true = np.asarray(y_true)
     y_pred = np.asarray(y_pred)
     # figure out all unique classes across both arrays
@@ -56,7 +161,24 @@ def confusion_matrix(y_true, y_pred):
 
 
 def precision_score(y_true, y_pred):
-    """Precision, of all predicted positives how many were actually positive."""
+    """
+    Compute precision for binary classification.
+
+    Precision is the fraction of positive predictions that were correct.
+    A high precision means few false positives.
+
+    Parameters
+    ----------
+    y_true : array-like of shape (n_samples,)
+        True binary labels (0 or 1).
+    y_pred : array-like of shape (n_samples,)
+        Predicted binary labels (0 or 1).
+
+    Returns
+    -------
+    precision : float
+        Fraction of positive predictions that were actually positive.
+    """
     cm = confusion_matrix(y_true, y_pred)
     # true positives are correct positive predictions
     tp = cm[1, 1]
@@ -67,7 +189,24 @@ def precision_score(y_true, y_pred):
 
 
 def recall_score(y_true, y_pred):
-    """Recall, of all actual positives how many did we correctly find."""
+    """
+    Compute recall for binary classification.
+
+    Recall is the fraction of actual positives that were correctly identified.
+    A high recall means few false negatives.
+
+    Parameters
+    ----------
+    y_true : array-like of shape (n_samples,)
+        True binary labels (0 or 1).
+    y_pred : array-like of shape (n_samples,)
+        Predicted binary labels (0 or 1).
+
+    Returns
+    -------
+    recall : float
+        Fraction of actual positives that were correctly identified.
+    """
     cm = confusion_matrix(y_true, y_pred)
     tp = cm[1, 1]
     # false negatives are positive samples we missed
