@@ -65,28 +65,28 @@ Implemented in `src/rice_ml/processing/`
 ## Repository Structure
 
 ```text
-QiushiHan-CMOR-438/
+QiushiHan-CMOR-438
 ├── .github/workflows/ci.yml
-├── examples/
-│   ├── Supervised_Learning/
-│   │   ├── Linear_Regression/
-│   │   ├── Logistic_Regression/
-│   │   ├── K_Nearest_Neighbors/
-│   │   ├── Perceptron/
-│   │   ├── Multilayer_Perceptron/
-│   │   ├── Decision_Trees/
-│   │   ├── Regression_Trees/
-│   │   └── Ensemble_Methods/
-│   └── Unsupervised_Learning/
-│       ├── K_Means_Clustering/
-│       ├── DBSCAN/
-│       ├── PCA/
-│       └── Community_Detection/
-├── src/rice_ml/
-│   ├── supervised_learning/
-│   ├── unsupervised_learning/
-│   └── processing/
-├── tests/unit/
+├── examples
+│   ├── Supervised_Learning
+│   │   ├── Linear_Regression
+│   │   ├── Logistic_Regression
+│   │   ├── K_Nearest_Neighbors
+│   │   ├── Perceptron
+│   │   ├── Multilayer_Perceptron
+│   │   ├── Decision_Trees
+│   │   ├── Regression_Trees
+│   │   └── Ensemble_Methods
+│   └── Unsupervised_Learning
+│       ├── K_Means_Clustering
+│       ├── DBSCAN
+│       ├── PCA
+│       └── Community_Detection
+├── src/rice_ml
+│   ├── supervised_learning
+│   ├── unsupervised_learning
+│   └── processing
+├── tests/unit
 ├── README.md
 ├── LICENSE
 ├── pyproject.toml
