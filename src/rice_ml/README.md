@@ -20,6 +20,8 @@ pip install -e .
 ---
 
 ## Package Structure
+
+```text
 rice_ml/
 ├── supervised_learning/
 │   ├── linear_regression.py
@@ -35,9 +37,10 @@ rice_ml/
 │   ├── dbscan.py
 │   ├── pca.py
 │   └── label_propagation.py
-└── processing/
+├── processing/
 ├── preprocessing.py
 └── metrics.py
+```
 
 ---
 
