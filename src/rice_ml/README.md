@@ -22,8 +22,8 @@ pip install -e .
 ## Package Structure
 
 ```text
-rice_ml/
-├── supervised_learning/
+rice_ml
+├── supervised_learning
 │   ├── linear_regression.py
 │   ├── logistic_regression.py
 │   ├── knn.py
@@ -32,12 +32,12 @@ rice_ml/
 │   ├── decision_tree_classifier.py
 │   ├── decision_tree_regressor.py
 │   └── ensemble.py
-├── unsupervised_learning/
+├── unsupervised_learning
 │   ├── k_means.py
 │   ├── dbscan.py
 │   ├── pca.py
 │   └── label_propagation.py
-├── processing/
+├── processing
 ├── preprocessing.py
 └── metrics.py
 ```
